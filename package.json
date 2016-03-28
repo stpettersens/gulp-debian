@@ -1,0 +1,36 @@
+{
+  "name": "gulp-debian",
+  "version": "0.1.0",
+  "description": "Gulp plug-in to create a Debian package",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stpettersens/gulp-debian.git"
+  },
+  "keywords": [
+    "gulpplugin",
+    "debian",
+    "deb",
+    "package"
+  ],
+  "author": "Sam Saint-Pettersen <s.stpettersen+github@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/stpettersens/gulp-debian/issues"
+  },
+  "homepage": "https://github.com/stpettersens/gulp-debian#readme",
+  "dependencies": {
+    "fs-extra": "^0.26.7",
+    "gulp-util": "^3.0.7",
+    "through2": "^2.0.1",
+    "title-case": "^1.1.2"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-rimraf": "^0.2.0",
+    "mocha": "^2.4.5"
+  }
+}
