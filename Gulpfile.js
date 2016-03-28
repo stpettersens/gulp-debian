@@ -16,7 +16,8 @@ gulp.task('deb', function() {
 		description: 'A dummy package',
 		_target: 'opt/demo',
 		_out: 'dist',
-		_verbose: true
+		_verbose: true,
+		_ignore: ['.npmignore']
 	 }));
 });
 
