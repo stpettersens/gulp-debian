@@ -1,4 +1,4 @@
-### gulp-ssp-preprocessor
+### gulp-debian
 > :tropical_drink: Gulp plug-in to create a Debian package. :package:
 
 <!--[![Build Status](https://travis-ci.org/stpettersens/gulp-debian.png?branch=master)](https://travis-ci.org/stpettersens/gulp-debian)-->
