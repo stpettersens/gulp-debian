@@ -17,7 +17,7 @@ const gulp = require('gulp'),
        deb = require('gulp-debian');
 
 gulp.task('default', function () {
-	return gulp.src(['demo.sh', 'blob.bin'])
+	return gulp.src(['demo.sh','blob.bin'])
 	.pipe(deb({
 		package: 'demo',
 		version: '0.1-1',
