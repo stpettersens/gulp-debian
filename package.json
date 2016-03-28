@@ -1,36 +1,90 @@
 {
-  "name": "gulp-debian",
-  "version": "0.1.1",
-  "description": "Gulp plug-in to create a Debian package",
-  "main": "index.js",
-  "scripts": {
-    "test": "mocha"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/stpettersens/gulp-debian.git"
-  },
-  "keywords": [
-    "gulpplugin",
-    "debian",
-    "deb",
-    "package"
+  "_args": [
+    [
+      "gulp-debian",
+      "/home/sam/Projects/_"
+    ]
   ],
-  "author": "Sam Saint-Pettersen <s.stpettersen+github@gmail.com>",
-  "license": "MIT",
+  "_from": "gulp-debian@latest",
+  "_id": "gulp-debian@0.1.0",
+  "_inCache": true,
+  "_installable": true,
+  "_location": "/gulp-debian",
+  "_nodeVersion": "5.9.0",
+  "_npmOperationalInternal": {
+    "host": "packages-16-east.internal.npmjs.com",
+    "tmp": "tmp/gulp-debian-0.1.0.tgz_1459178016856_0.535720415180549"
+  },
+  "_npmUser": {
+    "email": "s.stpettersen+github@gmail.com",
+    "name": "stpettersens"
+  },
+  "_npmVersion": "3.8.2",
+  "_phantomChildren": {},
+  "_requested": {
+    "name": "gulp-debian",
+    "raw": "gulp-debian",
+    "rawSpec": "",
+    "scope": null,
+    "spec": "latest",
+    "type": "tag"
+  },
+  "_requiredBy": [
+    "#USER"
+  ],
+  "_shasum": "ab63d2fcd402b7abb8a7f0245d419a7aaa1b13a5",
+  "_shrinkwrap": null,
+  "_spec": "gulp-debian",
+  "_where": "/home/sam/Projects/_",
+  "author": {
+    "email": "s.stpettersen+github@gmail.com",
+    "name": "Sam Saint-Pettersen"
+  },
   "bugs": {
     "url": "https://github.com/stpettersens/gulp-debian/issues"
   },
-  "homepage": "https://github.com/stpettersens/gulp-debian#readme",
   "dependencies": {
     "fs-extra": "^0.26.7",
     "gulp-util": "^3.0.7",
     "through2": "^2.0.1",
     "title-case": "^1.1.2"
   },
+  "description": "Gulp plug-in to create a Debian package",
   "devDependencies": {
     "gulp": "^3.9.1",
     "gulp-rimraf": "^0.2.0",
     "mocha": "^2.4.5"
-  }
+  },
+  "directories": {},
+  "dist": {
+    "shasum": "ab63d2fcd402b7abb8a7f0245d419a7aaa1b13a5",
+    "tarball": "http://registry.npmjs.org/gulp-debian/-/gulp-debian-0.1.0.tgz"
+  },
+  "gitHead": "375b8c7e2bb375c24dc7b5a3318d14e7a3ef0dcb",
+  "homepage": "https://github.com/stpettersens/gulp-debian#readme",
+  "keywords": [
+    "gulpplugin",
+    "debian",
+    "deb",
+    "package"
+  ],
+  "license": "MIT",
+  "main": "index.js",
+  "maintainers": [
+    {
+      "email": "s.stpettersen+github@gmail.com",
+      "name": "stpettersens"
+    }
+  ],
+  "name": "gulp-debian",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stpettersens/gulp-debian.git"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "version": "0.1.0"
 }

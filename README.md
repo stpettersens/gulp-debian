@@ -37,5 +37,4 @@ gulp.task('default', function () {
 * Options: Object containing properties for a Debian file and the following parameters:
 	* _target: string - The installation target for the created Debian package (mandatory).
 	* _out: string - The target directory to create the Debian package in (mandatory).
-	* _ignore: string[] - Array of files/folders to ignore for target directory.
 	* _verbose: boolean - Verbose output from dpkg-deb utility (optional; true if omitted).
