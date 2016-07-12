@@ -19,7 +19,8 @@
   "author": "Sam Saint-Pettersen <s.stpettersen+github@gmail.com>",
   "contributors": [
     {
-      "name": "Oliver Skånberg-Tippen"
+      "name": "Oliver Skånberg-Tippen",
+      "url": "http://github.com/oskanberg"
     }
   ],
   "license": "MIT",
