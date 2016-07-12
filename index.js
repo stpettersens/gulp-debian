@@ -38,15 +38,15 @@ module.exports = function (pkg) {
         return
       }
       let out = `${pkg._out}/${pkg.package}_${pkg.version}`
-      let ws = fs.createOutputStream(`${out}/DEBIAN/control`)
       ctrl = ctrl.filter(function (line) {
         if (!/Out|Target|Verbose/.test(line)) {
           return line
         }
       })
-      ws.write(ctrl.join('\n'), function (result) {
-        if (result instanceof Error) {
-          cb(new gutil.PluginError('gulp-debian', result))
+      const ctrlf = ctrl.join('\n')
+      fs.outputFile(`${out}/DEBIAN/control`, ctrlf.substr(0, ctrlf.length - 1), function (err) {
+        if (err) {
+          cb(new gutil.PluginError('gulp-debian', err))
           return
         }
         files.map(function (f) {
@@ -55,7 +55,9 @@ module.exports = function (pkg) {
           fs.copySync(f.path, `${out}/${pkg._target}/${t}`)
         })
         _exec(`dpkg-deb --build ${pkg._out}/${pkg.package}_${pkg.version}`, function (err, stdout, stderr) {
-          if (pkg._verbose && stdout.length > 1) gutil.log(stdout.trim())
+          if (pkg._verbose && stdout.length > 1) {
+            gutil.log(stdout.trim() + '\n')
+          }
           if (stderr) {
             gutil.log(gutil.colors.red(stderr.trim()))
             cb(err)

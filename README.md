@@ -1,7 +1,8 @@
 ### gulp-debian
-> :tropical_drink: Gulp plug-in to create a Debian package. :package:
+> :tropical_drink: Gulp plug-in to create a Debian package.
 
 [![Build Status](https://travis-ci.org/stpettersens/gulp-debian.png?branch=master)](https://travis-ci.org/stpettersens/gulp-debian)
+[![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](https://github.com/feross/standard)
 [![npm version](https://badge.fury.io/js/gulp-debian.svg)](http://npmjs.com/package/gulp-debian)
 [![Dependency Status](https://david-dm.org/stpettersens/gulp-debian.png?theme=shields.io)](https://david-dm.org/stpettersens/gulp-debian) [![Development Dependency Status](https://david-dm.org/stpettersens/gulp-debian/dev-status.png?theme=shields.io)](https://david-dm.org/stpettersens/gulp-debian#info=devDependencies)
 
@@ -32,19 +33,19 @@ gulp.task('default', function () {
 })
 ```
 
-#### Options
+##### Options
 
 * Options: Object containing properties for a Debian file and the following parameters:
 	* _target: string - The installation target for the created Debian package (mandatory).
 	* _out: string - The target directory to create the Debian package in (mandatory).
 	* _verbose: boolean - Verbose output from dpkg-deb utility (optional; true if omitted).
 
-#### Contributors
+##### Contributors
 
 * [Sam Saint-Pettersen](https://github.com/stpettersens)
 * [Oliver Skånberg-Tippen](https://github.com/oskanberg)
 
 
-#### License
+##### License
 
-* [MIT](https://opensource.org/licenses/MIT)
+[MIT](https://opensource.org/licenses/MIT)

@@ -1,7 +1,7 @@
 dist/
+test/
 node_modules/
 .gitignore
 .npmignore
 .travis.yml
-test.js
 Gulpfile.js

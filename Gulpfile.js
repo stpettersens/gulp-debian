@@ -4,6 +4,8 @@ const gulp = require('gulp')
 const clean = require('gulp-rimraf')
 const sequence = require('gulp-sequence')
 const standard = require('gulp-standard')
+const nodeUnit = require('gulp-nodeunit-runner')
+const wait = require('gulp-wait')
 const deb = require('./')
 
 gulp.task('deb', function () {
@@ -23,7 +25,7 @@ gulp.task('deb', function () {
 })
 
 gulp.task('standard', function () {
-  return gulp.src('*.js')
+  return gulp.src(['*.js', 'test/*.js'])
   .pipe(standard())
   .pipe(standard.reporter('default', {
     breakOnError: true
@@ -31,7 +33,9 @@ gulp.task('standard', function () {
 })
 
 gulp.task('nodeunit', function () {
-  // TODO!
+  return gulp.src('test/test.js')
+  .pipe(wait(1500))
+  .pipe(nodeUnit())
 })
 
 gulp.task('clean', function () {
@@ -40,4 +44,4 @@ gulp.task('clean', function () {
 })
 
 gulp.task('default', ['deb'])
-gulp.task('test', sequence('standard', 'deb', 'assert'))
+gulp.task('test', sequence('standard', 'nodeunit'))
