@@ -6,11 +6,11 @@
 [![npm version](https://badge.fury.io/js/gulp-debian.svg)](http://npmjs.com/package/gulp-debian)
 [![Dependency Status](https://david-dm.org/stpettersens/gulp-debian.png?theme=shields.io)](https://david-dm.org/stpettersens/gulp-debian) [![Development Dependency Status](https://david-dm.org/stpettersens/gulp-debian/dev-status.png?theme=shields.io)](https://david-dm.org/stpettersens/gulp-debian#info=devDependencies)
 
-##### Install:
+##### Install
 
     $ npm install --save-dev gulp-debian
 
-##### Usage:
+##### Usage
 ```js
 'use strict'
 
