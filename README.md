@@ -44,6 +44,7 @@ gulp.task('default', function () {
 
 * [Sam Saint-Pettersen](https://github.com/stpettersens)
 * [Oliver Skånberg-Tippen](https://github.com/oskanberg)
+* [Olaf Radicke](https://github.com/olafradicke)
 
 
 ##### License
