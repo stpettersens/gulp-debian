@@ -33,7 +33,7 @@
   },
   "homepage": "https://github.com/stpettersens/gulp-debian#readme",
   "dependencies": {
-    "fs-extra": "^0.30.0",
+    "fs-extra": "^1.0.0",
     "gulp-util": "^3.0.7",
     "through2": "^2.0.1",
     "title-case": "^2.1.0"
@@ -43,7 +43,7 @@
     "gulp-nodeunit-runner": "^0.2.2",
     "gulp-rimraf": "^0.2.0",
     "gulp-sequence": "^0.4.5",
-    "gulp-standard": "^7.0.1",
+    "gulp-standard": "^8.0.0",
     "gulp-wait": "0.0.2"
   }
 }
