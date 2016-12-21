@@ -37,7 +37,7 @@ module.exports = function (pkg) {
         cb(new gutil.PluginError('gulp-debian', err, {filename: files[0].path}))
         return
       }
-      let out = `${pkg._out}/${pkg.package}_${pkg.version}`
+      let out = `${pkg._out}/${pkg.package}_${pkg.version}_${pkg.architecture}`
       ctrl = ctrl.filter(function (line) {
         if (!/Out|Target|Verbose/.test(line)) {
           return line
@@ -54,7 +54,7 @@ module.exports = function (pkg) {
           t = t[t.length - 1]
           fs.copySync(f.path, `${out}/${pkg._target}/${t}`)
         })
-        _exec(`dpkg-deb --build ${pkg._out}/${pkg.package}_${pkg.version}`, function (err, stdout, stderr) {
+        _exec(`dpkg-deb --build ${pkg._out}/${pkg.package}_${pkg.version}_${pkg.architecture}`, function (err, stdout, stderr) {
           if (pkg._verbose && stdout.length > 1) {
             gutil.log(stdout.trim() + '\n')
           }
