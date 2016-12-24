@@ -1,0 +1,12 @@
+demo (0.1-2) unstable; urgency=low
+
+	 * Added another feature.
+	 * Fixed feature X.
+
+-- Mr. Apt <apt@nowhere.tld> Sat Dec 24 2016 12:40:10 GMT+0000 (GMT Standard Time)
+
+demo (0.1-1) unstable; urgency=low
+
+	 * First release.
+
+-- Mr. Apt <apt@nowhere.tld> Fri Dec 23 2016 11:24:00 GMT+0000 (GMT Standard Time)
