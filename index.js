@@ -39,7 +39,7 @@ module.exports = function (pkg) {
       }
       let out = `${pkg._out}/${pkg.package}_${pkg.version}_${pkg.architecture}`
       ctrl = ctrl.filter(function (line) {
-        if (!/Out|Target|Verbose/.test(line)) {
+        if (!/Out|Sources|Target|Verbose/.test(line)) {
           return line
         }
       })
