@@ -5,3 +5,4 @@ node_modules/
 .npmignore
 .travis.yml
 Gulpfile.js
+changelog.Debian
