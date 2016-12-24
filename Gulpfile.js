@@ -19,9 +19,9 @@ gulp.task('deb', function () {
     maintainer: 'Mr. Apt <apt@nowhere.tld>',
     description: 'A dummy package',
     _sources: [
-      ['.gitignore','/config'],
+      ['.gitignore', '/config'],
       ['.npmignore'],
-      ['LICENSE','/docu']],
+      ['LICENSE', '/docu']],
     _target: 'opt/demo',
     _out: 'dist',
     _verbose: true

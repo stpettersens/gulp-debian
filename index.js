@@ -51,8 +51,8 @@ module.exports = function (pkg) {
         }
         pkg._sources.map(function (filepair) {
           var distinctpath = ''
-          if (filepair.length == 2) {
-              distinctpath = filepair[1]
+          if (filepair.length === 2) {
+            distinctpath = filepair[1]
           }
           var sourcepath = filepair[0]
           let pathsplit = sourcepath.split('/')
