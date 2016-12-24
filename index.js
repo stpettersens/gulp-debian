@@ -49,10 +49,15 @@ module.exports = function (pkg) {
           cb(new gutil.PluginError('gulp-debian', err))
           return
         }
-        files.map(function (f) {
-          let t = f.path.split('/')
-          t = t[t.length - 1]
-          fs.copySync(f.path, `${out}/${pkg._target}/${t}`)
+        pkg._sources.map(function (filepair) {
+          var distinctpath = ''
+          if (filepair.length == 2) {
+              distinctpath = filepair[1]
+          }
+          var sourcepath = filepair[0]
+          let pathsplit = sourcepath.split('/')
+          var targetfilename = pathsplit[pathsplit.length - 1]
+          fs.copySync(sourcepath, `${out}/${pkg._target}/${distinctpath}/${targetfilename}`)
         })
         _exec(`dpkg-deb --build ${pkg._out}/${pkg.package}_${pkg.version}_${pkg.architecture}`, function (err, stdout, stderr) {
           if (pkg._verbose && stdout.length > 1) {

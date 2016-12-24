@@ -9,7 +9,7 @@ const wait = require('gulp-wait')
 const deb = require('./')
 
 gulp.task('deb', function () {
-  return gulp.src(['.gitignore', '.npmignore'])
+  return gulp.src([])
   .pipe(deb({
     package: 'demo',
     version: '0.1-1',
@@ -18,6 +18,10 @@ gulp.task('deb', function () {
     architecture: 'i386',
     maintainer: 'Mr. Apt <apt@nowhere.tld>',
     description: 'A dummy package',
+    _sources: [
+      ['.gitignore','/config'],
+      ['.npmignore'],
+      ['LICENSE','/docu']],
     _target: 'opt/demo',
     _out: 'dist',
     _verbose: true
