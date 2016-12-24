@@ -5,3 +5,7 @@ language: node_js
 node_js:
   - '6.2'
   - '5.1'
+  
+test:
+  - npm test
+  - ls
