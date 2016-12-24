@@ -12,12 +12,33 @@ gulp.task('deb', function () {
   return gulp.src(['.gitignore', '.npmignore'])
   .pipe(deb({
     package: 'demo',
-    version: '0.1-1',
+    version: '0.1-2',
     section: 'base',
     priority: 'optional',
     architecture: 'i386',
     maintainer: 'Mr. Apt <apt@nowhere.tld>',
     description: 'A dummy package',
+    changelog: [
+      {
+        version: '0.1-2',
+        distribution: 'unstable',
+        urgency: 'low',
+        date: new Date('2016-12-24T12:40:10'),
+        changes: [
+          'Added another feature.',
+          'Fixed feature X.'
+        ]
+      },
+      {
+        version: '0.1-1',
+        distribution: 'unstable',
+        urgency: 'low',
+        date: '2016-12-23T11:24:00',
+        changes: [
+          'First release.'
+        ]
+      }
+    ],
     _target: 'opt/demo',
     _out: 'dist',
     _verbose: true
