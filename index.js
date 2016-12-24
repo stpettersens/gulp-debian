@@ -15,6 +15,21 @@ function deb (files, pkg, cb) {
   return cb(null, ctrl)
 }
 
+function changelog (pkg) {
+  let log = []
+  for (let i = 0; i < pkg.changelog.length; i++) {
+    let header = `${pkg.package} (${pkg.changelog[i].version}) `
+    header += `${pkg.changelog[i].distribution}; urgency=${pkg.changelog[i].urgency}`
+    log.push(header + '\n')
+    for (let x = 0; x < pkg.changelog[i].changes.length; x++) {
+      log.push(`\t * ${pkg.changelog[i].changes[x]}`)
+    }
+    const ts = Date.parse(pkg.changelog[i].date)
+    log.push(`\n-- ${pkg.maintainer} ${new Date(ts)}\n`)
+  }
+  return log
+}
+
 module.exports = function (pkg) {
   let files = []
   return through.obj(function (file, enc, cb) {
@@ -39,10 +54,21 @@ module.exports = function (pkg) {
       }
       let out = `${pkg._out}/${pkg.package}_${pkg.version}_${pkg.architecture}`
       ctrl = ctrl.filter(function (line) {
-        if (!/Out|Target|Verbose/.test(line)) {
+        if (!/Out|Target|Verbose|Changelog/.test(line)) {
           return line
         }
       })
+      const logf = changelog(pkg)
+      if (logf.length > 0) {
+        fs.mkdirpSync(`${out}/usr/share/doc/${pkg.package}`)
+        fs.outputFile(`${out}/usr/share/doc/${pkg.package}/changelog.Debian`, logf.join('\n'),
+        function (err) {
+          if (err) {
+            cb(new gutil.PluginError('gulp-debian', err))
+            return
+          }
+        })
+      }
       const ctrlf = ctrl.join('\n')
       fs.outputFile(`${out}/DEBIAN/control`, ctrlf.substr(0, ctrlf.length - 1), function (err) {
         if (err) {
@@ -54,7 +80,8 @@ module.exports = function (pkg) {
           t = t[t.length - 1]
           fs.copySync(f.path, `${out}/${pkg._target}/${t}`)
         })
-        _exec(`dpkg-deb --build ${pkg._out}/${pkg.package}_${pkg.version}_${pkg.architecture}`, function (err, stdout, stderr) {
+        _exec(`dpkg-deb --build ${pkg._out}/${pkg.package}_${pkg.version}_${pkg.architecture}`,
+        function (err, stdout, stderr) {
           if (pkg._verbose && stdout.length > 1) {
             gutil.log(stdout.trim() + '\n')
           }
