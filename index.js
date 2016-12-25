@@ -6,6 +6,8 @@ const titleCase = require('title-case')
 const fs = require('fs-extra')
 const _exec = require('child_process').exec
 
+const P = 'gulp-debian'
+
 function deb (files, pkg, cb) {
   let ctrl = []
   for (let key in pkg) {
@@ -30,11 +32,23 @@ function changelog (pkg) {
   return log
 }
 
+function installScript (fn, script, out, cb) {
+  script.push('')
+  if (script !== undefined && script.length > 0) {
+    fs.outputFile(`${out}/DEBIAN/${fn}`, script.join('\n'), function (err) {
+      if (err) {
+        cb(new gutil.PluginError(P, err))
+        return
+      }
+    })
+  }
+}
+
 module.exports = function (pkg) {
   let files = []
   return through.obj(function (file, enc, cb) {
     if (file.isStream()) {
-      cb(new gutil.PluginError('gulp-debian', 'Streaming not supported.'))
+      cb(new gutil.PluginError(P, 'Streaming not supported.'))
       return
     }
     files.push(file)
@@ -45,16 +59,18 @@ module.exports = function (pkg) {
         pkg._verbose = true
       }
       if (pkg._target === undefined || pkg._out === undefined) {
-        cb(new gutil.PluginError('gulp-debian', '_target and/or _out undefined.'))
+        cb(new gutil.PluginError(P, '_target and/or _out undefined.'))
         return
       }
       if (err) {
-        cb(new gutil.PluginError('gulp-debian', err, {filename: files[0].path}))
+        cb(new gutil.PluginError(P, err, {filename: files[0].path}))
         return
       }
       let out = `${pkg._out}/${pkg.package}_${pkg.version}_${pkg.architecture}`
+      installScript('preinst', pkg.preinst, out, cb)
+      installScript('postinst', pkg.postinst, out, cb)
       ctrl = ctrl.filter(function (line) {
-        if (!/Out|Target|Verbose|Changelog/.test(line)) {
+        if (!/Out|Target|Verbose|Changelog|Preinst|Postinst/.test(line)) {
           return line
         }
       })
@@ -64,15 +80,16 @@ module.exports = function (pkg) {
         fs.outputFile(`${out}/usr/share/doc/${pkg.package}/changelog.Debian`, logf.join('\n'),
         function (err) {
           if (err) {
-            cb(new gutil.PluginError('gulp-debian', err))
+            cb(new gutil.PluginError(P, err))
             return
           }
         })
       }
       const ctrlf = ctrl.join('\n')
-      fs.outputFile(`${out}/DEBIAN/control`, ctrlf.substr(0, ctrlf.length - 1), function (err) {
+      fs.outputFile(`${out}/DEBIAN/control`, ctrlf.substr(0, ctrlf.length - 1),
+      function (err) {
         if (err) {
-          cb(new gutil.PluginError('gulp-debian', err))
+          cb(new gutil.PluginError(P, err))
           return
         }
         files.map(function (f) {
