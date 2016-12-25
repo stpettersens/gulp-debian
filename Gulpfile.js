@@ -6,6 +6,7 @@ const sequence = require('gulp-sequence')
 const standard = require('gulp-standard')
 const nodeUnit = require('gulp-nodeunit-runner')
 const wait = require('gulp-wait')
+const chalk = require('chalk')
 const glob = require('glob')
 const deb = require('./')
 
@@ -61,9 +62,12 @@ gulp.task('nodeunit', function () {
 })
 
 gulp.task('ls', function () {
-  for (let p in glob.sync('dist')) {
-    console.log(p)
+  const ls = glob.sync('dist/*/**')
+  console.log('')
+  for (let i = 0; i < ls.length; i++) {
+    console.log(chalk.cyan(ls[i]))
   }
+  console.log('')
 })
 
 gulp.task('clean', function () {
