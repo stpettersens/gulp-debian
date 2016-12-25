@@ -39,6 +39,7 @@
     "title-case": "^2.1.0"
   },
   "devDependencies": {
+    "glob": "^7.1.1",
     "gulp": "^3.9.1",
     "gulp-nodeunit-runner": "^0.2.2",
     "gulp-rimraf": "^0.2.0",
