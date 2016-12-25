@@ -62,10 +62,15 @@ gulp.task('nodeunit', function () {
 })
 
 gulp.task('ls', function () {
-  const ls = glob.sync('dist/*/**')
+  let ls = glob.sync('dist/*/**')
   console.log('')
   for (let i = 0; i < ls.length; i++) {
-    console.log(chalk.cyan(ls[i]))
+    console.log(chalk.magenta(ls[i]))
+  }
+  console.log('')
+  ls = glob.sync('*.deb')
+  for (let i = 0; i < ls.length; i++) {
+    console.log(chalk.blue(ls[i]))
   }
   console.log('')
 })
