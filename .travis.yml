@@ -1,7 +1,6 @@
 notifications:
   email: false
 
-sudo: 'required'
 language: node_js
 node_js:
   - '6.2'
