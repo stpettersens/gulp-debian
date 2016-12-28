@@ -42,7 +42,7 @@ function installScript (fn, script, out, cb) {
         cb(new gutil.PluginError(P, err))
         return
       }
-      chmod(644, o)
+      chmod(755, o)
     })
   }
 }
