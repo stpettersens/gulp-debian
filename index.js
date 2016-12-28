@@ -1,5 +1,7 @@
 'use strict'
 
+/* global chmod */
+
 const gutil = require('gulp-util')
 const through = require('through2')
 const titleCase = require('title-case')
