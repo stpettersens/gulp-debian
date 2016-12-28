@@ -41,6 +41,7 @@ function installScript (fn, script, out, cb) {
         return
       }
     })
+    chmod(644, script)
   }
 }
 
