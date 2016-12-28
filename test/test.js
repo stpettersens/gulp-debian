@@ -28,7 +28,6 @@ exports.debian = function (test) {
 
   // Debian package.
   const deb = fs.existsSync('dist/demo_0.1-2_i386.deb')
-  test.equal(deb, true)
-  
+  test.equal(deb, true)  
   test.done()
 }

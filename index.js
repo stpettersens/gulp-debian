@@ -5,6 +5,7 @@ const through = require('through2')
 const titleCase = require('title-case')
 const fs = require('fs-extra')
 const _exec = require('child_process').exec
+require('shelljs/global')
 
 const P = 'gulp-debian'
 
@@ -33,15 +34,16 @@ function changelog (pkg) {
 }
 
 function installScript (fn, script, out, cb) {
-  script.push('')
   if (script !== undefined && script.length > 0) {
-    fs.outputFile(`${out}/DEBIAN/${fn}`, script.join('\n'), function (err) {
+    script.push('')
+    const o = `${out}/DEBIAN/${fn}`
+    fs.outputFile(o, script.join('\n'), function (err) {
       if (err) {
         cb(new gutil.PluginError(P, err))
         return
       }
+      chmod(644, o)
     })
-    chmod(644, script)
   }
 }
 
