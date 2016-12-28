@@ -3,7 +3,7 @@
 const fs = require('fs-extra')
 
 exports.debian = function (test) {
-  test.expect(3)
+  test.expect(4)
 
   // Control file.
   let actual = fs.readFileSync('dist/demo_0.1-2_i386/DEBIAN/control').toString()
