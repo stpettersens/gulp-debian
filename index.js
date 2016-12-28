@@ -68,8 +68,8 @@ module.exports = function (pkg) {
         return
       }
       let out = `${pkg._out}/${pkg.package}_${pkg.version}_${pkg.architecture}`
-      // installScript('preinst', pkg.preinst, out, cb)
-      // installScript('postinst', pkg.postinst, out, cb)
+      installScript('preinst', pkg.preinst, out, cb)
+      installScript('postinst', pkg.postinst, out, cb)
       ctrl = ctrl.filter(function (line) {
         if (!/Out|Target|Verbose|Changelog|Preinst|Postinst/.test(line)) {
           return line
