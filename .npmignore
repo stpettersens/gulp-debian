@@ -1,6 +1,7 @@
 dist/
 test/
 node_modules/
+.gitattributes
 .gitignore
 .npmignore
 .travis.yml
