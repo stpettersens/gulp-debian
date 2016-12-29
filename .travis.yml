@@ -8,4 +8,4 @@ node_js:
   - '5.1'
 
 after_script:
-  - npm run dpkg-install
+  - sudo npm run dpkg-install
