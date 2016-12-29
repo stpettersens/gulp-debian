@@ -1,5 +1,7 @@
 'use strict'
 
+/* global exec */
+
 const gulp = require('gulp')
 const clean = require('gulp-rimraf')
 const sequence = require('gulp-sequence')
@@ -9,6 +11,7 @@ const wait = require('gulp-wait')
 const chalk = require('chalk')
 const glob = require('glob')
 const deb = require('./')
+require('shelljs/global')
 
 gulp.task('deb', function () {
   return gulp.src(['.gitignore', '.npmignore'])
@@ -77,10 +80,18 @@ gulp.task('ls', function () {
   console.log('')
 })
 
+gulp.task('dpkg', function () {
+  exec('dpkg-deb -I demo_0.1-2_i386.deb')
+})
+
+gulp.task('install', function () {
+  exec('dpkg -i demo_0.1-2_i386.deb')
+})
+
 gulp.task('clean', function () {
   return gulp.src('dist')
   .pipe(clean())
 })
 
 gulp.task('default', ['deb'])
-gulp.task('test', sequence('standard', 'nodeunit', 'ls'))
+gulp.task('test', sequence('standard', 'nodeunit', 'ls', 'dpkg', 'install'))
