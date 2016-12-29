@@ -1,1 +1,1 @@
-cat opt/demo/.gitignore
+echo "hello from dummy package"

@@ -1,1 +1,1 @@
-cat /opt/demo/.npmignore
+cat -n /opt/demo/.npmignore
