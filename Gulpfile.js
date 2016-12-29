@@ -23,8 +23,8 @@ gulp.task('deb', function () {
     architecture: 'i386',
     maintainer: 'Mr. Apt <apt@nowhere.tld>',
     description: 'A dummy package',
-    preinst: [ 'cat opt/demo/.gitignore' ],
-    postinst: [ 'cat /opt/demo/.npmignore' ],
+    preinst: [ 'echo "hello from dummy package"' ],
+    postinst: [ 'cat -n /opt/demo/.npmignore' ],
     changelog: [
       {
         version: '0.1-2',
