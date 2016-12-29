@@ -81,11 +81,11 @@ gulp.task('ls', function () {
 })
 
 gulp.task('dpkg', function () {
-  exec('dpkg-deb -I demo_0.1-2_i386.deb')
+  exec('dpkg-deb -I dist/demo_0.1-2_i386.deb')
 })
 
 gulp.task('install', function () {
-  exec('dpkg -i demo_0.1-2_i386.deb')
+  exec('dpkg -i dist/demo_0.1-2_i386.deb')
 })
 
 gulp.task('clean', function () {
@@ -94,4 +94,4 @@ gulp.task('clean', function () {
 })
 
 gulp.task('default', ['deb'])
-gulp.task('test', sequence('standard', 'nodeunit', 'ls', 'dpkg', 'install'))
+gulp.task('test', sequence('standard', 'nodeunit', 'ls', 'dpkg'))
