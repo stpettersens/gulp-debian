@@ -85,7 +85,7 @@ gulp.task('dpkg', function () {
 })
 
 gulp.task('install', function () {
-  exec('dpkg -i dist/demo_0.1-2_i386.deb')
+  exec('sudo dpkg -i dist/demo_0.1-2_i386.deb')
 })
 
 gulp.task('clean', function () {
