@@ -6,7 +6,7 @@ const gutil = require('gulp-util')
 const through = require('through2')
 const titleCase = require('title-case')
 const fs = require('fs-extra')
-const zlib = require('zlib')
+// const zlib = require('zlib')
 const _exec = require('child_process').exec
 require('shelljs/global')
 
