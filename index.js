@@ -6,6 +6,7 @@ const gutil = require('gulp-util')
 const through = require('through2')
 const titleCase = require('title-case')
 const fs = require('fs-extra')
+const zlib = require('zlib')
 const _exec = require('child_process').exec
 require('shelljs/global')
 
@@ -81,14 +82,30 @@ module.exports = function (pkg) {
       })
       const logf = changelog(pkg)
       if (logf.length > 0) {
-        fs.mkdirpSync(`${out}/usr/share/doc/${pkg.package}`)
-        fs.outputFile(`${out}/usr/share/doc/${pkg.package}/changelog.Debian`, logf.join('\n'),
+        const logp = `${out}/usr/share/doc/${pkg.package}`
+        const logo = `${logp}/changelog.Debian`
+        fs.mkdirpSync(logp)
+        fs.outputFile(logo, logf.join('\n'),
         function (err) {
           if (err) {
             cb(new gutil.PluginError(P, err))
             return
           }
         })
+        let gzip = fs.createWriteStream(`${logo}.gz`)
+        let logg = fs.createReadStream(logo)
+        try {
+          logg
+          .pipe(zlib.createGzip())
+          .pipe(gzip)
+        } catch (e) {
+          gutil.log(gutil.colors.red(`Error creating ${gzip}!`))
+          gutil.log(e.stack)
+        } finally {
+          if (fs.existsSync(logg)) {
+            fs.removeSync(logg)
+          }
+        }
       }
       const ctrlf = ctrl.join('\n')
       fs.outputFile(`${out}/DEBIAN/control`, ctrlf.substr(0, ctrlf.length - 1),

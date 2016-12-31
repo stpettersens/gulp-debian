@@ -1,6 +1,6 @@
 {
   "name": "gulp-debian",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Gulp plug-in to create a Debian package",
   "main": "index.js",
   "scripts": {
@@ -37,7 +37,6 @@
     "fs-extra": "^1.0.0",
     "gulp-util": "^3.0.8",
     "shelljs": "^0.7.5",
-    "ssp-tarino": "^0.1.2",
     "through2": "^2.0.1",
     "title-case": "^2.1.0"
   },
