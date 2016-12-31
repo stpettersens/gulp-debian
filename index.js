@@ -92,7 +92,7 @@ module.exports = function (pkg) {
             return
           }
         })
-        let gzip = fs.createWriteStream(`${logo}.gz`)
+        /* let gzip = fs.createWriteStream(`${logo}.gz`)
         let logg = fs.createReadStream(logo)
         try {
           logg
@@ -102,10 +102,10 @@ module.exports = function (pkg) {
           gutil.log(gutil.colors.red(`Error creating ${gzip}!`))
           gutil.log(e.stack)
         } finally {
-          /* if (fs.existsSync(logg)) {
+          if (fs.existsSync(logg)) {
             fs.removeSync(logg)
-          } */
-        }
+          }
+        } */
       }
       const ctrlf = ctrl.join('\n')
       fs.outputFile(`${out}/DEBIAN/control`, ctrlf.substr(0, ctrlf.length - 1),
