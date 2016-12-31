@@ -102,9 +102,9 @@ module.exports = function (pkg) {
           gutil.log(gutil.colors.red(`Error creating ${gzip}!`))
           gutil.log(e.stack)
         } finally {
-          if (fs.existsSync(logg)) {
+          /* if (fs.existsSync(logg)) {
             fs.removeSync(logg)
-          }
+          } */
         }
       }
       const ctrlf = ctrl.join('\n')
