@@ -6,4 +6,4 @@ node_modules/
 .npmignore
 .travis.yml
 Gulpfile.js
-changelog.Debian
+demo_0.1-2_i386.json
