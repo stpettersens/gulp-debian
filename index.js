@@ -42,7 +42,7 @@ function installScript (fn, script, out, cb) {
         cb(new gutil.PluginError(P, err))
         return
       }
-      fs.chmodSync(o, 0755)
+      fs.chmodSync(o, parseInt('0755', 8))
     })
   }
 }
