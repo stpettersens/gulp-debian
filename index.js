@@ -100,22 +100,12 @@ module.exports = function (pkg) {
           } catch (e) {
             gutil.log(gutil.colors.red(`Error creating ${gzip}!`))
             gutil.log(e.stack)
+          } finally {
+            if (fs.existsSync(logo)) {
+              fs.removeSync(logo)
+            }
           }
         })
-        /* let gzip = fs.createWriteStream(`${logo}.gz`)
-        let logg = fs.createReadStream(logo)
-        try {
-          logg
-          .pipe(zlib.createGzip())
-          .pipe(gzip)
-        } catch (e) {
-          gutil.log(gutil.colors.red(`Error creating ${gzip}!`))
-          gutil.log(e.stack)
-        } finally {
-          if (fs.existsSync(logg)) {
-            fs.removeSync(logg)
-          }
-        } */
       }
       const ctrlf = ctrl.join('\n')
       fs.outputFile(`${out}/DEBIAN/control`, ctrlf.substr(0, ctrlf.length - 1),
