@@ -1,13 +1,10 @@
 'use strict'
 
-/* global chmod */
-
 const gutil = require('gulp-util')
 const through = require('through2')
 const titleCase = require('title-case')
 const fs = require('fs-extra')
 const zlib = require('zlib')
-// const glob = require('glob')
 const _exec = require('child_process').exec
 require('shelljs/global')
 
@@ -46,7 +43,7 @@ function installScript (fn, script, out, cb) {
         cb(new gutil.PluginError(P, err))
         return
       }
-      chmod(755, o)
+      fs.chmodSync(o, 755)
     })
   }
 }
