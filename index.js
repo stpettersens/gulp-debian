@@ -7,6 +7,7 @@ const through = require('through2')
 const titleCase = require('title-case')
 const fs = require('fs-extra')
 const zlib = require('zlib')
+// const glob = require('glob')
 const _exec = require('child_process').exec
 require('shelljs/global')
 
@@ -98,7 +99,7 @@ module.exports = function (pkg) {
             .pipe(zlib.createGzip())
             .pipe(gzip)
           } catch (e) {
-            gutil.log(gutil.colors.red(`Error creating ${gzip}!`))
+            gutil.log(gutil.colors.red(`Error creating ${gzip} for changelog!`))
             gutil.log(e.stack)
           } finally {
             if (fs.existsSync(logo)) {
