@@ -98,6 +98,5 @@ gulp.task('clean', function () {
   .pipe(clean())
 })
 
-gulp.task('default', ['deb'])
-gulp.task('deb', sequence('deb-inline', 'deb-json'))
+gulp.task('default', ['deb-inline'])
 gulp.task('test', sequence('standard', 'nodeunit', 'ls', 'dpkg'))

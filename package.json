@@ -4,7 +4,7 @@
   "description": "Gulp plug-in to create a Debian package",
   "main": "index.js",
   "scripts": {
-    "test": "gulp deb && gulp test",
+    "test": "gulp deb-inline && gulp deb-json && gulp test",
     "dpkg-install": "gulp install"
   },
   "repository": {

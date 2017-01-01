@@ -61,6 +61,11 @@ module.exports = function (pkg) {
       if (typeof pkg === 'string') {
         pkg = fs.readJSONSync(pkg)
       }
+
+      // ------------------------------
+      console.log(JSON.stringify(pkg))
+      // ------------------------------
+
       if (pkg._verbose === undefined) {
         pkg._verbose = true
       }
