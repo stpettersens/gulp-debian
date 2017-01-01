@@ -6,7 +6,7 @@ const gutil = require('gulp-util')
 const through = require('through2')
 const titleCase = require('title-case')
 const fs = require('fs-extra')
-// const zlib = require('zlib')
+const zlib = require('zlib')
 const _exec = require('child_process').exec
 require('shelljs/global')
 
@@ -90,6 +90,16 @@ module.exports = function (pkg) {
           if (err) {
             cb(new gutil.PluginError(P, err))
             return
+          }
+          let gzip = fs.createWriteStream(`${logo}.gz`)
+          let logg = fs.createReadStream(logo)
+          try {
+            logg
+            .pipe(zlib.createGzip())
+            .pipe(gzip)
+          } catch (e) {
+            gutil.log(gutil.colors.red(`Error creating ${gzip}!`))
+            gutil.log(e.stack)
           }
         })
         /* let gzip = fs.createWriteStream(`${logo}.gz`)
