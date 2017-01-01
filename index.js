@@ -6,7 +6,6 @@ const titleCase = require('title-case')
 const fs = require('fs-extra')
 const zlib = require('zlib')
 const _exec = require('child_process').exec
-require('shelljs/global')
 
 const P = 'gulp-debian'
 
@@ -43,7 +42,7 @@ function installScript (fn, script, out, cb) {
         cb(new gutil.PluginError(P, err))
         return
       }
-      fs.chmodSync(o, 755)
+      fs.chmodSync(o, 0755)
     })
   }
 }
