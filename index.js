@@ -58,6 +58,9 @@ module.exports = function (pkg) {
     cb(null)
   }, function (cb) {
     deb(files, pkg, function (err, ctrl) {
+      if (typeof pkg === 'string' && pkg.endsWith('.json')) {
+        pkg = fs.readJSONSync(pkg)
+      }
       if (pkg._verbose === undefined) {
         pkg._verbose = true
       }

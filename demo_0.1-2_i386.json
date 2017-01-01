@@ -1,0 +1,35 @@
+{
+  "package": "demo_from_json",
+  "version": "0.1-2",
+  "section": "base",
+  "priority": "optional",
+  "architecture": "i386",
+  "maintainer": "Mr. Apt <apt@nowhere.tld>",
+  "description": "A dummy package",
+  "preinst": [ "echo 'hello from dummy package (json)'" ],
+  "postinst": [ "cat -n /opt/demo/.gitignore" ],
+  "changelog": [
+      {
+        "version": "0.1-2",
+        "distribution": "unstable",
+        "urgency": "low",
+        "date": "2016-12-24T12:40:10",
+        "changes": [
+          "Added another feature.",
+          "Fixed feature X."
+        ]
+      },
+      {
+        "version": "0.1-1",
+        "distribution": "unstable",
+        "urgency": "low",
+        "date": "2016-12-23T11:24:00",
+        "changes": [
+          "First release."
+        ]
+      }
+    ],
+    "_target": "opt/demo",
+    "_out": "dist",
+    "_verbose": true
+  }

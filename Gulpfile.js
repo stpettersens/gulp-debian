@@ -13,7 +13,7 @@ const glob = require('glob')
 const deb = require('./')
 require('shelljs/global')
 
-gulp.task('deb', function () {
+gulp.task('deb-inline', function () {
   return gulp.src(['.gitignore', '.npmignore'])
   .pipe(deb({
     package: 'demo',
@@ -50,6 +50,11 @@ gulp.task('deb', function () {
     _out: 'dist',
     _verbose: true
   }))
+})
+
+gulp.task('deb-json', function () {
+  return gulp.src(['.gitignore', '.npmignore'])
+  .pipe(deb('demo_0.1-2_i386.json'))
 })
 
 gulp.task('standard', function () {
@@ -94,4 +99,5 @@ gulp.task('clean', function () {
 })
 
 gulp.task('default', ['deb'])
+gulp.task('deb', sequence('deb-inline', 'deb-json'))
 gulp.task('test', sequence('standard', 'nodeunit', 'ls', 'dpkg'))
