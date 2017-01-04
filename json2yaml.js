@@ -12,6 +12,6 @@ module.exports.JSON2YAML = function (jsonf) {
   const json = fs.readJSONSync(jsonf)
   json.package = `${json.package.replace(/json/, 'yaml')}`
   const yaml = YAML.safeDump(json)
-  console.log(chalk.italic(yaml))
+  console.log(chalk.magenta(yaml))
   fs.writeFileSync(yamlf, yaml)
 }

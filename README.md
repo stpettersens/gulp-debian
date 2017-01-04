@@ -69,6 +69,19 @@ gulp.task('default', function () {
 })
 ```
 
+You can also use a YAML file to define your package. Just convert it to an Object first using
+the [js-yaml](https://github.com/nodeca/js-yaml) module (`npm install --save js-yaml`):
+
+```js
+const YAML = require('json-yaml)
+const fs = require('fs')
+
+gulp.task('default', function () {
+  return gulp.src(['demo.sh', 'blob.bin'])
+  .pipe(deb(YAML.load(fs.readFileSync('demo_0.1-2_i386.yml').toString())))
+})
+```
+
 ##### Options
 
 * Options: Object containing properties for a Debian file and the following parameters:

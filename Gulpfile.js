@@ -110,8 +110,6 @@ gulp.task('dpkg', function () {
 
 gulp.task('install', function () {
   exec('sudo dpkg -i dist/demo_0.1-2_i386.deb')
-  console.log('')
-  exec('sudo dpkg -i dist/demo-from-json_0.1-2_i386.deb')
 })
 
 gulp.task('clean', function () {
