@@ -11,7 +11,13 @@ const wait = require('gulp-wait')
 const chalk = require('chalk')
 const glob = require('glob')
 const deb = require('./')
+const YAML = require('js-yaml')
+const j2y = require('./json2yaml')
+const fs = require('fs')
 require('shelljs/global')
+
+const PKG_JSON = 'demo_0.1-2_i386.json'
+const PKG_YAML = 'demo_0.1-2_i386.yml'
 
 gulp.task('deb-inline', function () {
   return gulp.src(['.gitignore', '.npmignore'])
@@ -52,9 +58,18 @@ gulp.task('deb-inline', function () {
   }))
 })
 
+gulp.task('json2yaml', function () {
+  j2y.JSON2YAML(PKG_JSON)
+})
+
 gulp.task('deb-json', function () {
   return gulp.src(['.gitignore', '.npmignore'])
-  .pipe(deb('demo_0.1-2_i386.json'))
+  .pipe(deb(PKG_JSON))
+})
+
+gulp.task('deb-yaml', function () {
+  return gulp.src(['.gitignore', '.npmignore'])
+  .pipe(deb(YAML.load(fs.readFileSync(PKG_YAML).toString())))
 })
 
 gulp.task('standard', function () {
@@ -89,6 +104,8 @@ gulp.task('dpkg', function () {
   exec('dpkg-deb -I dist/demo_0.1-2_i386.deb')
   console.log('')
   exec('dpkg-deb -I dist/demo-from-json_0.1-2_i386.deb')
+  console.log('')
+  exec('dpkg-deb -I dist/demo-from-yaml_0.1-2_i386.deb')
 })
 
 gulp.task('install', function () {
@@ -98,7 +115,7 @@ gulp.task('install', function () {
 })
 
 gulp.task('clean', function () {
-  return gulp.src('dist')
+  return gulp.src(['dist', 'demo_0.1-2_i386.yml'])
   .pipe(clean())
 })
 

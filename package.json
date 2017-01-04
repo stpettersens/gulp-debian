@@ -1,10 +1,11 @@
 {
   "name": "gulp-debian",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "Gulp plug-in to create a Debian package",
   "main": "index.js",
   "scripts": {
-    "test": "gulp deb-inline && gulp deb-json && gulp test",
+    "json2yaml": "gulp json2yaml",
+    "test": "gulp deb-inline && gulp deb-json && gulp deb-yaml && gulp test",
     "dpkg-install": "gulp install"
   },
   "repository": {
@@ -43,11 +44,13 @@
     "chalk": "^1.1.3",
     "glob": "^7.1.1",
     "gulp": "^3.9.1",
+    "gulp-data": "^1.2.1",
     "gulp-nodeunit-runner": "^0.2.2",
     "gulp-rimraf": "^0.2.0",
     "gulp-sequence": "^0.4.5",
     "gulp-standard": "^8.0.0",
     "gulp-wait": "0.0.2",
+    "js-yaml": "^3.7.0",
     "shelljs": "^0.7.5"
   }
 }

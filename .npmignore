@@ -4,6 +4,7 @@ node_modules/
 .gitattributes
 .gitignore
 .npmignore
-.travis.yml
+*.yml
 Gulpfile.js
+json2yaml.js
 demo_0.1-2_i386.json
