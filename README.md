@@ -75,11 +75,11 @@ gulp.task('default', function () {
   	* preinst: Array of commands to run for the package's *pre-install* script (optional).
   	* postint: Array of commmands to run for the package's *post-install* script (optional).
   	* changelog: Array of versions and their changes to write to the package's *changelog* (optional, but recommended). Options are:
-  	..* version: String for version with changes.
-  	..* distribution: String for version distribution.
-  	..* urgency: String for version urgency.
-  	..* date: Date object or String in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) notation for version date.
-  	..* changes: Array of changes made.
+  		* version: String for version with changes.
+  		* distribution: String for version distribution.
+  		* urgency: String for version urgency.
+  		* date: Date object or String in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) notation for version date.
+  		* changes: Array of changes made.
 	* _target: string - The installation target for the created Debian package (mandatory).
 	* _out: string - The target directory to create the Debian package in (mandatory).
 	* _verbose: boolean - Verbose output from dpkg-deb utility (optional; true if omitted).
