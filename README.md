@@ -73,7 +73,7 @@ You can also use a YAML file to define your package. Just convert it to an Objec
 the [js-yaml](https://github.com/nodeca/js-yaml) module (`npm install --save js-yaml`):
 
 ```js
-const YAML = require('json-yaml)
+const YAML = require('json-yaml')
 const fs = require('fs')
 
 gulp.task('default', function () {
