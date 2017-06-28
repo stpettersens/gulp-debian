@@ -20,7 +20,7 @@ Define package in-line:
 const gulp = require('gulp')
 const deb = require('gulp-debian')
 
-gulp.task('default', function () {
+gulp.task('default', function (done) {
   return gulp.src(['demo.sh','blob.bin'])
   .pipe(deb({
     package: 'demo',
@@ -57,15 +57,17 @@ gulp.task('default', function () {
     _out: 'dist',
     _verbose: true
   }))
+  done()
 })
 ```
 
 Alternatively, you can define your package in an external [JSON file](demo_0.1-2_i386.json):
 
 ```js
-gulp.task('default', function () {
+gulp.task('default', function (done) {
   return gulp.src(['demo.sh', 'blob.bin'])
   .pipe(deb('demo_0.1-2_i386.json'))
+  done()
 })
 ```
 
@@ -76,9 +78,10 @@ the [js-yaml](https://github.com/nodeca/js-yaml) module (`npm install --save js-
 const YAML = require('js-yaml')
 const fs = require('fs')
 
-gulp.task('default', function () {
+gulp.task('default', function (done) {
   return gulp.src(['demo.sh', 'blob.bin'])
   .pipe(deb(YAML.load(fs.readFileSync('demo_0.1-2_i386.yml').toString())))
+  done()
 })
 ```
 
