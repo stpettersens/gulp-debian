@@ -75,8 +75,10 @@ module.exports = function (pkg) {
       let out = `${pkg._out}/${pkg.package}_${pkg.version}_${pkg.architecture}`
       installScript('preinst', pkg.preinst, out, cb)
       installScript('postinst', pkg.postinst, out, cb)
+      installScript('prerm', pkg.prerm, out, cb)
+      installScript('postrm', pkg.postrm, out, cb)
       ctrl = ctrl.filter(function (line) {
-        if (!/Out|Target|Verbose|Changelog|Preinst|Postinst/.test(line)) {
+        if (!/Out|Target|Verbose|Changelog|Preinst|Postinst|Prerm|Postrm|Clean/.test(line)) {
           return line
         }
       })
@@ -121,6 +123,9 @@ module.exports = function (pkg) {
         })
         _exec(`dpkg-deb --build ${pkg._out}/${pkg.package}_${pkg.version}_${pkg.architecture}`,
         function (err, stdout, stderr) {
+          if (pkg._clean) {
+            fs.removeSync(`${pkg._out}/${pkg.package}_${pkg.version}_${pkg.architecture}`)
+          }
           if (pkg._verbose && stdout.length > 1) {
             gutil.log(stdout.trim() + '\n')
           }
