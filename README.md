@@ -115,7 +115,7 @@ gulp.task('default', function (done) {
 * [Sam Saint-Pettersen](https://github.com/stpettersens)
 * [Oliver Skånberg-Tippen](https://github.com/oskanberg)
 * [Olaf Radicke](https://github.com/OlafRadicke)
-
+* [Míguel Ángel Mulero Martínez](https://github.com/McGiverGim)
 
 ##### License
 
