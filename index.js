@@ -47,6 +47,18 @@ function installScript (fn, script, out, cb) {
   }
 }
 
+function installCopyright (pn, path, out, cb) {
+    if (fs.existsSync(path)) {
+        const o = `${out}/usr/share/doc/${pn}/copyright`;
+        fs.copySync(path, o);
+        fs.chmodSync(o, parseInt('0644', 8));
+    }
+    else {
+      gutil.log(gutil.colors.red(`Error reading copyright file!`))
+      gutil.log(e.stack)
+    }
+}
+
 module.exports = function (pkg) {
   let files = []
   return through.obj(function (file, enc, cb) {
@@ -68,6 +80,10 @@ module.exports = function (pkg) {
         cb(new gutil.PluginError(P, '_target and/or _out undefined.'))
         return
       }
+      if (pkg._copyright === undefined) {
+        cb(new gutil.PluginError(P, '_copyright undefined!'));
+        return;
+      }
       if (err) {
         cb(new gutil.PluginError(P, err, {filename: files[0].path}))
         return
@@ -77,8 +93,9 @@ module.exports = function (pkg) {
       installScript('postinst', pkg.postinst, out, cb)
       installScript('prerm', pkg.prerm, out, cb)
       installScript('postrm', pkg.postrm, out, cb)
+      installCopyright(pkg.package, pkg._copyright, out, cb);
       ctrl = ctrl.filter(function (line) {
-        if (!/Out|Target|Verbose|Changelog|Preinst|Postinst|Prerm|Postrm|Clean/.test(line)) {
+        if (!/Out|Target|Verbose|Changelog|Preinst|Postinst|Prerm|Postrm|Clean|Copyright/.test(line)) {
           return line
         }
       })

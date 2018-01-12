@@ -28,7 +28,7 @@ gulp.task('deb-inline', function () {
     priority: 'optional',
     architecture: 'i386',
     maintainer: 'Mr. Apt <apt@nowhere.tld>',
-    description: 'A dummy package',
+    description: 'A dummy package\n Long description starts here...',
     preinst: [ 'echo "hello from dummy package"' ],
     postinst: [ 'cat -n /opt/demo/.npmignore' ],
     changelog: [
@@ -53,6 +53,7 @@ gulp.task('deb-inline', function () {
       }
     ],
     _target: 'opt/demo',
+    _copyright: 'test/copyright',
     _out: 'dist',
     _verbose: true
   }))
