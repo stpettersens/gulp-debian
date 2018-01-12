@@ -5,7 +5,7 @@
     "priority": "optional",
     "architecture": "i386",
     "maintainer": "Mr. Apt <apt@nowhere.tld>",
-    "description": "A dummy package",
+    "description": "A dummy package\n Long description starts here...",
     "preinst": [
         "echo 'hello from dummy package (json)'"
     ],
@@ -35,5 +35,6 @@
     ],
     "_target": "opt/demo",
     "_out": "dist",
+    "_copyright": "test/copyright",
     "_verbose": true
 }
