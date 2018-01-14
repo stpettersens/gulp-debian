@@ -131,8 +131,8 @@ module.exports = function (pkg) {
           }
           if (stderr) {
             gutil.log(gutil.colors.red(stderr.trim()))
-            cb(err)
           }
+          cb(err)
         })
       })
     })
