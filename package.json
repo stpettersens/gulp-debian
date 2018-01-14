@@ -1,6 +1,6 @@
 {
   "name": "gulp-debian",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "Gulp plug-in to create a Debian package",
   "main": "index.js",
   "scripts": {
