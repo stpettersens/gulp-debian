@@ -6,9 +6,7 @@
     "architecture": "i386",
     "maintainer": "Mr. Apt <apt@nowhere.tld>",
     "description": "A dummy package\n Long description starts here...",
-    "preinst": [
-        "echo 'hello from dummy package (json)'"
-    ],
+    "preinst": "test/preinst",
     "postinst": [
         "cat -n /opt/demo/.gitignore"
     ],

@@ -29,7 +29,7 @@ gulp.task('deb-inline', function () {
     architecture: 'i386',
     maintainer: 'Mr. Apt <apt@nowhere.tld>',
     description: 'A dummy package\n Long description starts here...',
-    preinst: [ 'echo "hello from dummy package"' ],
+    preinst: 'test/preinst',
     postinst: [ 'cat -n /opt/demo/.npmignore' ],
     changelog: [
       {

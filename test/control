@@ -5,3 +5,4 @@ Priority: optional
 Architecture: i386
 Maintainer: Mr. Apt <apt@nowhere.tld>
 Description: A dummy package
+ Long description starts here...

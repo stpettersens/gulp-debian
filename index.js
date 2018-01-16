@@ -35,15 +35,25 @@ function changelog (pkg) {
 
 function installScript (fn, script, out, cb) {
   if (script !== undefined && script.length > 0) {
-    script.push('')
     const o = `${out}/DEBIAN/${fn}`
-    fs.outputFile(o, script.join('\n'), function (err) {
-      if (err) {
-        cb(new gutil.PluginError(P, err))
+    if (typeof script === 'string') {
+      if (fs.existsSync(script)) {
+        fs.copySync(script, o)
+        fs.chmodSync(o, parseInt('0755', 8))
+      } else {
+        cb(new gutil.PluginError(P, `File ${script} not exist!`))
         return
       }
-      fs.chmodSync(o, parseInt('0755', 8))
-    })
+    } else {
+      script.push('')
+      fs.outputFile(o, script.join('\n'), function (err) {
+        if (err) {
+          cb(new gutil.PluginError(P, err))
+          return
+        }
+        fs.chmodSync(o, parseInt('0755', 8))
+      })
+    }
   }
 }
 

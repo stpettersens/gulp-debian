@@ -92,10 +92,10 @@ gulp.task('default', function (done) {
 ##### Options
 
 * Options: Object containing properties for a Debian file and the following parameters:
-    * preinst: Array of commands to run for the package's *pre-install* script (optional).
-    * postint: Array of commmands to run for the package's *post-install* script (optional).
-    * prerm: Array of commands to run for the package's *pre-remove* script (optional).
-    * postrm: Array of commmands to run for the package's *post-remove* script (optional).
+    * preinst: String with a path to script or array of commands to run for the package's *pre-install* script (optional).
+    * postint: String with a path to script or array of commmands to run for the package's *post-install* script (optional).
+    * prerm: String with a path to script or array of commands to run for the package's *pre-remove* script (optional).
+    * postrm: String with a path to script or array of commmands to run for the package's *post-remove* script (optional).
     * changelog: Array of versions and their changes to write to the package's *changelog* (optional, but recommended). Options are:
         * version: String for version with changes.
         * distribution: String for version distribution.
