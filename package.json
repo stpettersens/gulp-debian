@@ -1,6 +1,6 @@
 {
   "name": "gulp-debian",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "Gulp plug-in to create a Debian package",
   "main": "index.js",
   "scripts": {
@@ -31,7 +31,11 @@
     {
       "name": "Míguel Ángel Mulero Martínez",
       "url": "https://github.com/McGiverGim"
-    }
+    },
+	{
+	  "name": "lucomsky",
+	  "url": "https://github.com/lucomsky"
+	}
   ],
   "license": "MIT",
   "bugs": {
@@ -52,9 +56,9 @@
     "gulp-nodeunit-runner": "^0.2.2",
     "gulp-rimraf": "^0.2.0",
     "gulp-sequence": "^1.0.0",
-    "gulp-standard": "^8.0.0",
+    "gulp-standard": "^10.1.1",
     "gulp-wait": "0.0.2",
     "js-yaml": "^3.7.0",
-    "shelljs": "^0.7.5"
+    "shelljs": "^0.8.0"
   }
 }
