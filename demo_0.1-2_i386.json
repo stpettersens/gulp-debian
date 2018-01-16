@@ -5,10 +5,8 @@
     "priority": "optional",
     "architecture": "i386",
     "maintainer": "Mr. Apt <apt@nowhere.tld>",
-    "description": "A dummy package",
-    "preinst": [
-        "echo 'hello from dummy package (json)'"
-    ],
+    "description": "A dummy package\n Long description starts here...",
+    "preinst": "test/preinst",
     "postinst": [
         "cat -n /opt/demo/.gitignore"
     ],
@@ -35,5 +33,6 @@
     ],
     "_target": "opt/demo",
     "_out": "dist",
+    "_copyright": "test/copyright",
     "_verbose": true
 }

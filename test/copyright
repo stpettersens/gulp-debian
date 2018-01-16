@@ -1,0 +1,7 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: Demo gulp-debian app
+Source: https://github.com/stpettersens/gulp-debian
+
+Files: *
+Copyright: 2016, 2017 Sam Saint-Pettersen and Contributors
+License: GPL-2+

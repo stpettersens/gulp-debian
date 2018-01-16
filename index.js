@@ -35,15 +35,35 @@ function changelog (pkg) {
 
 function installScript (fn, script, out, cb) {
   if (script !== undefined && script.length > 0) {
-    script.push('')
     const o = `${out}/DEBIAN/${fn}`
-    fs.outputFile(o, script.join('\n'), function (err) {
-      if (err) {
-        cb(new gutil.PluginError(P, err))
+    if (typeof script === 'string') {
+      if (fs.existsSync(script)) {
+        fs.copySync(script, o)
+        fs.chmodSync(o, parseInt('0755', 8))
+      } else {
+        cb(new gutil.PluginError(P, `File ${script} not exist!`))
         return
       }
-      fs.chmodSync(o, parseInt('0755', 8))
-    })
+    } else {
+      script.push('')
+      fs.outputFile(o, script.join('\n'), function (err) {
+        if (err) {
+          cb(new gutil.PluginError(P, err))
+          return
+        }
+        fs.chmodSync(o, parseInt('0755', 8))
+      })
+    }
+  }
+}
+
+function installCopyright (pn, path, out, cb) {
+  if (fs.existsSync(path)) {
+    const o = `${out}/usr/share/doc/${pn}/copyright`
+    fs.copySync(path, o)
+    fs.chmodSync(o, parseInt('0644', 8))
+  } else {
+    gutil.log(gutil.colors.red(`Error reading copyright file!`))
   }
 }
 
@@ -68,6 +88,10 @@ module.exports = function (pkg) {
         cb(new gutil.PluginError(P, '_target and/or _out undefined.'))
         return
       }
+      if (pkg._copyright === undefined) {
+        cb(new gutil.PluginError(P, '_copyright undefined!'))
+        return
+      }
       if (err) {
         cb(new gutil.PluginError(P, err, {filename: files[0].path}))
         return
@@ -77,8 +101,9 @@ module.exports = function (pkg) {
       installScript('postinst', pkg.postinst, out, cb)
       installScript('prerm', pkg.prerm, out, cb)
       installScript('postrm', pkg.postrm, out, cb)
+      installCopyright(pkg.package, pkg._copyright, out, cb)
       ctrl = ctrl.filter(function (line) {
-        if (!/Out|Target|Verbose|Changelog|Preinst|Postinst|Prerm|Postrm|Clean/.test(line)) {
+        if (!/Out|Target|Verbose|Changelog|Preinst|Postinst|Prerm|Postrm|Clean|Copyright/.test(line)) {
           return line
         }
       })
