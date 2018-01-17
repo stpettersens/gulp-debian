@@ -42,14 +42,14 @@ function installScript (fn, script, out, cb) {
         fs.chmodSync(o, parseInt('0755', 8))
       } else {
         cb(new gutil.PluginError(P, `File ${script} not exist!`))
-        // return
+        return
       }
     } else {
       script.push('')
       fs.outputFile(o, script.join('\n'), function (err) {
         if (err) {
           cb(new gutil.PluginError(P, err))
-          // return
+          return
         }
         fs.chmodSync(o, parseInt('0755', 8))
       })
@@ -72,7 +72,7 @@ module.exports = function (pkg) {
   return through.obj(function (file, enc, cb) {
     if (file.isStream()) {
       cb(new gutil.PluginError(P, 'Streaming not supported.'))
-      // return
+      return
     }
     files.push(file)
     cb(null)
@@ -86,15 +86,15 @@ module.exports = function (pkg) {
       }
       if (pkg._target === undefined || pkg._out === undefined) {
         cb(new gutil.PluginError(P, '_target and/or _out undefined.'))
-        // return
+        return
       }
       if (pkg._copyright === undefined) {
         cb(new gutil.PluginError(P, '_copyright undefined!'))
-        // return
+        return
       }
       if (err) {
         cb(new gutil.PluginError(P, err, {filename: files[0].path}))
-        // return
+        return
       }
       let out = `${pkg._out}/${pkg.package}_${pkg.version}_${pkg.architecture}`
       installScript('preinst', pkg.preinst, out, cb)
@@ -116,7 +116,7 @@ module.exports = function (pkg) {
         function (err) {
           if (err) {
             cb(new gutil.PluginError(P, err))
-            // return
+            return
           }
           let gzip = fs.createWriteStream(`${logo}.gz`)
           let logg = fs.createReadStream(logo)
@@ -139,7 +139,7 @@ module.exports = function (pkg) {
       function (err) {
         if (err) {
           cb(new gutil.PluginError(P, err))
-          // return
+          return
         }
         files.map(function (f) {
           let t = f.path.split('/')
