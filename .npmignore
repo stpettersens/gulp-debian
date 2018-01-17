@@ -1,6 +1,7 @@
 dist/
 test/
 node_modules/
+.editorconfig
 .gitattributes
 .gitignore
 .npmignore
