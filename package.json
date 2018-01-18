@@ -1,6 +1,6 @@
 {
   "name": "gulp-debian",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "description": "Gulp plug-in to create a Debian package",
   "main": "index.js",
   "scripts": {
@@ -32,10 +32,10 @@
       "name": "Míguel Ángel Mulero Martínez",
       "url": "https://github.com/McGiverGim"
     },
-	{
-	  "name": "lucomsky",
-	  "url": "https://github.com/lucomsky"
-	}
+    {
+      "name": "Alexey Lukomskiy",
+      "url": "https://github.com/lucomsky"
+    }
   ],
   "license": "MIT",
   "bugs": {
