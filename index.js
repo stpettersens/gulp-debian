@@ -89,8 +89,8 @@ module.exports = function (pkg) {
         // return
       }
       if (pkg._copyright === undefined) {
-        gutil.log(gutil.colors.cyan("_copyright may be omitted, but its highly recommended to define."))
-        //cb(new gutil.PluginError(P, '_copyright undefined!'))
+        gutil.log(gutil.colors.cyan('_copyright may be omitted, but it is highly recommended to define.'))
+        // cb(new gutil.PluginError(P, '_copyright undefined!'))
         // return
       }
       if (err) {

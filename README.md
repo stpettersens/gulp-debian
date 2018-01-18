@@ -104,7 +104,7 @@ gulp.task('default', function (done) {
         * changes: Array of changes made.
     * _target: string - The installation target for the created Debian package (mandatory).
     * _out: string - The target directory to create the Debian package in (mandatory).
-    * _copyright: string - The path to plain copyright file (functionally optional, but mandatory in[Debian policy](https://www.debian.org/doc/debian-policy/#copyright-information)).
+    * _copyright: string - The path to plain copyright file (functionally optional, but mandatory in [Debian policy](https://www.debian.org/doc/debian-policy/#copyright-information)).
 
     This should be **mandatory** in packages you intend to publish, but for testing purposes
     this can omitted for testing stage packages.
