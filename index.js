@@ -4,10 +4,11 @@ const gutil = require('gulp-util')
 const through = require('through2')
 const titleCase = require('title-case')
 const fs = require('fs-extra')
-const zlib = require('zlib')
 const _exec = require('child_process').exec
 
 const P = 'gulp-debian'
+const dirMode = 755 /* chmod param for directory */
+const fileMode = 644 /* chmod param for ordinary file */
 
 function deb (files, pkg, cb) {
   let ctrl = []
@@ -25,12 +26,38 @@ function changelog (pkg) {
     header += `${pkg.changelog[i].distribution}; urgency=${pkg.changelog[i].urgency}`
     log.push(header + '\n')
     for (let x = 0; x < pkg.changelog[i].changes.length; x++) {
-      log.push(`\t * ${pkg.changelog[i].changes[x]}`)
+      log.push(`  * ${pkg.changelog[i].changes[x]}`)
     }
     const ts = Date.parse(pkg.changelog[i].date)
-    log.push(`\n-- ${pkg.maintainer} ${new Date(ts)}\n`)
+    var d = new Date(ts)
+    d = d.toString().replace(/([a-zA-Z]*) ([a-zA-Z]*) ([0-9]*) ([0-9]*) ([0-9:]*) GMT(.....) .*/, '$1, $3 $2 $4 $5 $6')
+    log.push(`\n -- ${pkg.maintainer}  ${d}\n`)
   }
+  log.push('')
   return log
+}
+
+function writeChangelog (pkg, out, cb) {
+  const logf = changelog(pkg)
+  if (logf.length > 0) {
+    const logp = `${out}/usr/share/doc/${pkg.package}`
+    const logo = `${logp}/changelog.Debian`
+    fs.mkdirpSync(logp)
+    fs.outputFile(logo, logf.join('\n'),
+      function (err) {
+        if (err) {
+          cb(new gutil.PluginError(P, err))
+          return
+        }
+        _exec(`gzip -fn9 ${logo}; chmod ${fileMode} ${logo}.gz`,
+          function (err, stdout, stderr) {
+            if (stderr) {
+              gutil.log(gutil.colors.red(stderr.trim()))
+              cb(err)
+            }
+          })
+      })
+  }
 }
 
 function installScript (fn, script, out, cb) {
@@ -107,33 +134,7 @@ module.exports = function (pkg) {
           return line
         }
       })
-      const logf = changelog(pkg)
-      if (logf.length > 0) {
-        const logp = `${out}/usr/share/doc/${pkg.package}`
-        const logo = `${logp}/changelog.Debian`
-        fs.mkdirpSync(logp)
-        fs.outputFile(logo, logf.join('\n'),
-        function (err) {
-          if (err) {
-            cb(new gutil.PluginError(P, err))
-            return
-          }
-          let gzip = fs.createWriteStream(`${logo}.gz`)
-          let logg = fs.createReadStream(logo)
-          try {
-            logg
-            .pipe(zlib.createGzip())
-            .pipe(gzip)
-          } catch (e) {
-            gutil.log(gutil.colors.red(`Error creating ${gzip} for changelog!`))
-            gutil.log(e.stack)
-          } finally {
-            if (fs.existsSync(logo)) {
-              fs.removeSync(logo)
-            }
-          }
-        })
-      }
+      writeChangelog(pkg, out, cb)
       const ctrlf = ctrl.join('\n')
       fs.outputFile(`${out}/DEBIAN/control`, ctrlf.substr(0, ctrlf.length - 1),
       function (err) {
@@ -145,7 +146,9 @@ module.exports = function (pkg) {
           let t = f.path.split('/')
           t = t[t.length - 1]
           fs.copySync(f.path, `${out}/${pkg._target}/${t}`)
+          fs.chmodSync(`${out}/${pkg._target}/${t}`, parseInt(`0${fileMode}`, 8))
         })
+        _exec(`chmod ${dirMode} $(find ${pkg._out} -type d)`)
         _exec(`dpkg-deb --build ${pkg._out}/${pkg.package}_${pkg.version}_${pkg.architecture}`,
         function (err, stdout, stderr) {
           if (pkg._clean) {

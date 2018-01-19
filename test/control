@@ -1,8 +1,8 @@
 Package: demo
 Version: 0.1-2
-Section: base
+Section: devel
 Priority: optional
 Architecture: i386
 Maintainer: Mr. Apt <apt@nowhere.tld>
-Description: A dummy package
+Description: Dummy package
  Long description starts here...
