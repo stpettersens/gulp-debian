@@ -94,6 +94,16 @@ function installCopyright (pn, path, out, cb) {
   }
 }
 
+function chmodRegularFile (path, cb) {
+  if (fs.statSync(path).isFile()) {
+    fs.chmodSync(path, parseInt(`0${fileMode}`, 8))
+  } else {
+    fs.readdirSync(path).forEach(file => {
+      chmodRegularFile(`${path}/${file}`, cb)
+    })
+  }
+}
+
 module.exports = function (pkg) {
   let files = []
   return through.obj(function (file, enc, cb) {
@@ -146,7 +156,7 @@ module.exports = function (pkg) {
           let t = f.path.split('/')
           t = t[t.length - 1]
           fs.copySync(f.path, `${out}/${pkg._target}/${t}`)
-          fs.chmodSync(`${out}/${pkg._target}/${t}`, parseInt(`0${fileMode}`, 8))
+          chmodRegularFile(`${out}/${pkg._target}/${t}`)
         })
         _exec(`chmod ${dirMode} $(find ${pkg._out} -type d)`)
         _exec(`dpkg-deb --build ${pkg._out}/${pkg.package}_${pkg.version}_${pkg.architecture}`,
