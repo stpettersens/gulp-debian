@@ -6,6 +6,8 @@
 [![npm version](https://badge.fury.io/js/gulp-debian.svg)](http://npmjs.com/package/gulp-debian)
 [![Dependency Status](https://david-dm.org/stpettersens/gulp-debian.png?theme=shields.io)](https://david-dm.org/stpettersens/gulp-debian) [![Development Dependency Status](https://david-dm.org/stpettersens/gulp-debian/dev-status.png?theme=shields.io)](https://david-dm.org/stpettersens/gulp-debian?type=dev)
 
+** Please not that this project [did not use semantic versioning](https://github.com/stpettersens/gulp-debian/issues/19) prior to v1.0.0. It will be adopted as of that version. **
+
 ##### Install
 
     $ npm install --save-dev gulp-debian
@@ -122,7 +124,7 @@ gulp.task('default', function (done) {
 * [Oliver Skånberg-Tippen](https://github.com/oskanberg)
 * [Olaf Radicke](https://github.com/OlafRadicke)
 * [Míguel Ángel Mulero Martínez](https://github.com/McGiverGim)
-* [Alexey Lukomskiy](https://github.com/lucomsky)
+* [Alexey Lukomsky](https://github.com/lucomsky)
 
 ##### License
 
