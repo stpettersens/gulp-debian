@@ -69,14 +69,14 @@ function installScript (fn, script, out, cb) {
         fs.chmodSync(o, parseInt('0755', 8))
       } else {
         cb(new gutil.PluginError(P, `File ${script} not exist!`))
-        return
+        // return
       }
     } else {
       script.push('')
       fs.outputFile(o, script.join('\n'), function (err) {
         if (err) {
           cb(new gutil.PluginError(P, err))
-          return
+          // return
         }
         fs.chmodSync(o, parseInt('0755', 8))
       })
@@ -109,7 +109,7 @@ module.exports = function (pkg) {
   return through.obj(function (file, enc, cb) {
     if (file.isStream()) {
       cb(new gutil.PluginError(P, 'Streaming not supported.'))
-      return
+      // return
     }
     files.push(file)
     cb(null)
@@ -123,15 +123,16 @@ module.exports = function (pkg) {
       }
       if (pkg._target === undefined || pkg._out === undefined) {
         cb(new gutil.PluginError(P, '_target and/or _out undefined.'))
-        return
+        // return
       }
       if (pkg._copyright === undefined) {
-        cb(new gutil.PluginError(P, '_copyright undefined!'))
-        return
+        gutil.log(gutil.colors.cyan('_copyright may be omitted, but it is highly recommended to define.'))
+        // cb(new gutil.PluginError(P, '_copyright undefined!'))
+        // return
       }
       if (err) {
         cb(new gutil.PluginError(P, err, {filename: files[0].path}))
-        return
+        // return
       }
       let out = `${pkg._out}/${pkg.package}_${pkg.version}_${pkg.architecture}`
       installScript('preinst', pkg.preinst, out, cb)
@@ -144,13 +145,46 @@ module.exports = function (pkg) {
           return line
         }
       })
+
       writeChangelog(pkg, out, cb)
+      
+      /* @lucomsky's commit replaced this.
+      Kept only for reference. Will remove in future:
+      const logf = changelog(pkg)
+      if (logf.length > 0) {
+        const logp = `${out}/usr/share/doc/${pkg.package}`
+        const logo = `${logp}/changelog.Debian`
+        fs.mkdirpSync(logp)
+        fs.outputFile(logo, logf.join('\n'),
+        function (err) {
+          if (err) {
+            cb(new gutil.PluginError(P, err))
+            // return
+          }
+          let gzip = fs.createWriteStream(`${logo}.gz`)
+          let logg = fs.createReadStream(logo)
+          try {
+            logg
+            .pipe(zlib.createGzip())
+            .pipe(gzip)
+          } catch (e) {
+            gutil.log(gutil.colors.red(`Error creating ${gzip} for changelog!`))
+            gutil.log(e.stack)
+          } finally {
+            if (fs.existsSync(logo)) {
+              fs.removeSync(logo)
+            }
+          }
+        })
+      }
+      */
+      
       const ctrlf = ctrl.join('\n')
       fs.outputFile(`${out}/DEBIAN/control`, ctrlf.substr(0, ctrlf.length - 1),
       function (err) {
         if (err) {
           cb(new gutil.PluginError(P, err))
-          return
+          // return
         }
         files.map(function (f) {
           let t = f.path.split('/')
@@ -169,8 +203,8 @@ module.exports = function (pkg) {
           }
           if (stderr) {
             gutil.log(gutil.colors.red(stderr.trim()))
-            cb(err)
           }
+          cb(err)
         })
       })
     })

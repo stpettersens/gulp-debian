@@ -104,7 +104,11 @@ gulp.task('default', function (done) {
         * changes: Array of changes made.
     * _target: string - The installation target for the created Debian package (mandatory).
     * _out: string - The target directory to create the Debian package in (mandatory).
-    * _copyright: string - The path to plain copyright file (mandatory) see [Debian policy](https://www.debian.org/doc/debian-policy/#copyright-information).
+    * _copyright: string - The path to plain copyright file (functionally optional, but mandatory in [Debian policy](https://www.debian.org/doc/debian-policy/#copyright-information)).
+
+    This should be **mandatory** in packages you intend to publish, but for testing purposes
+    this can omitted for testing stage packages.
+
     * _clean: boolean - If true, removes the temporary directory created in the target directory with the same structure than the Debian package.
     * _verbose: boolean - Verbose output from dpkg-deb utility (optional; true if omitted).
 
@@ -118,6 +122,7 @@ gulp.task('default', function (done) {
 * [Oliver Skånberg-Tippen](https://github.com/oskanberg)
 * [Olaf Radicke](https://github.com/OlafRadicke)
 * [Míguel Ángel Mulero Martínez](https://github.com/McGiverGim)
+* [Alexey Lukomskiy](https://github.com/lucomsky)
 
 ##### License
 

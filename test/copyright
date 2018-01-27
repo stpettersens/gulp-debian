@@ -3,5 +3,5 @@ Upstream-Name: Demo gulp-debian app
 Source: https://github.com/stpettersens/gulp-debian
 
 Files: *
-Copyright: 2016, 2017 Sam Saint-Pettersen and Contributors
+Copyright: 2016-2018 Sam Saint-Pettersen and Contributors
 License: GPL-2+
