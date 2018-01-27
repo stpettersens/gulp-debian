@@ -1,6 +1,6 @@
 {
   "name": "gulp-debian",
-  "version": "0.1.9",
+  "version": "0.2.0",
   "description": "Gulp plug-in to create a Debian package",
   "main": "index.js",
   "scripts": {
@@ -33,7 +33,7 @@
       "url": "https://github.com/McGiverGim"
     },
     {
-      "name": "Alexey Lukomskiy",
+      "name": "Alexey Lukomsky",
       "url": "https://github.com/lucomsky"
     }
   ],
