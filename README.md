@@ -6,7 +6,7 @@
 [![npm version](https://badge.fury.io/js/gulp-debian.svg)](http://npmjs.com/package/gulp-debian)
 [![Dependency Status](https://david-dm.org/stpettersens/gulp-debian.png?theme=shields.io)](https://david-dm.org/stpettersens/gulp-debian) [![Development Dependency Status](https://david-dm.org/stpettersens/gulp-debian/dev-status.png?theme=shields.io)](https://david-dm.org/stpettersens/gulp-debian?type=dev)
 
-** Please not that this project [did not use semantic versioning](https://github.com/stpettersens/gulp-debian/issues/19) prior to v1.0.0. It will be adopted as of that version. **
+** Please note that this project [did not use](https://github.com/stpettersens/gulp-debian/issues/19) [semantic versioning](https://semver.org) prior to v1.0.0. It will be adopted as of that version. **
 
 ##### Install
 
