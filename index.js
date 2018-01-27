@@ -147,7 +147,6 @@ module.exports = function (pkg) {
       })
 
       writeChangelog(pkg, out, cb)
-      
       /* @lucomsky's commit replaced this.
       Kept only for reference. Will remove in future:
       const logf = changelog(pkg)
@@ -178,7 +177,6 @@ module.exports = function (pkg) {
         })
       }
       */
-      
       const ctrlf = ctrl.join('\n')
       fs.outputFile(`${out}/DEBIAN/control`, ctrlf.substr(0, ctrlf.length - 1),
       function (err) {
