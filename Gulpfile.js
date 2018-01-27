@@ -24,11 +24,11 @@ gulp.task('deb-inline', function () {
   .pipe(deb({
     package: 'demo',
     version: '0.1-2',
-    section: 'base',
+    section: 'devel',
     priority: 'optional',
     architecture: 'i386',
     maintainer: 'Mr. Apt <apt@nowhere.tld>',
-    description: 'A dummy package\n Long description starts here...',
+    description: 'Dummy package\n Long description starts here...',
     preinst: 'test/preinst',
     postinst: [ 'cat -n /opt/demo/.npmignore' ],
     changelog: [
