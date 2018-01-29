@@ -36,6 +36,7 @@ gulp.task('default', function (done) {
     postinst: [ 'cat -n /opt/demo/.npmignore' ],
     prerm: [ 'cat -n /opt/demo/.npmignore' ],
     postrm: [ 'echo "bye from dummy package"' ],
+    conffiles: 'configs/dir',
     changelog: [
       {
         version: '0.1-2',
