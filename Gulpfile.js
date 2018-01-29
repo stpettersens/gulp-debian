@@ -31,6 +31,7 @@ gulp.task('deb-inline', function () {
     description: 'Dummy package\n Long description starts here...',
     preinst: 'test/preinst',
     postinst: [ 'cat -n /opt/demo/.npmignore' ],
+    conffiles: 'test/configs/',
     changelog: [
       {
         version: '0.1-2',
