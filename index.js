@@ -4,6 +4,7 @@ const gutil = require('gulp-util')
 const through = require('through2')
 const titleCase = require('title-case')
 const fs = require('fs-extra')
+const find = require('find')
 const _exec = require('child_process').exec
 
 const P = 'gulp-debian'
@@ -94,6 +95,22 @@ function installCopyright (pn, path, out, cb) {
   }
 }
 
+function installConffiles (path, out, cb) {
+  var conffiles = []
+  var files = find.fileSync(path)
+  path = path.replace(/\/$/, '')
+  files.forEach(function (item) {
+    let pathDest = item.split('/').slice(path.split('/').length)
+    fs.copySync(item, `${out}/${pathDest.join('/')}`)
+    fs.chmodSync(`${out}/${pathDest.join('/')}`, parseInt(`0${fileMode}`, 8))
+    pathDest = '/' + pathDest.join('/')
+    conffiles.push(pathDest)
+  })
+  conffiles.push('')
+  fs.outputFileSync(`${out}/DEBIAN/conffiles`, conffiles.join('\n'))
+  fs.chmodSync(`${out}/DEBIAN/conffiles`, parseInt(`0${fileMode}`, 8))
+}
+
 function chmodRegularFile (path, cb) {
   if (fs.statSync(path).isFile()) {
     fs.chmodSync(path, parseInt(`0${fileMode}`, 8))
@@ -140,50 +157,21 @@ module.exports = function (pkg) {
       installScript('prerm', pkg.prerm, out, cb)
       installScript('postrm', pkg.postrm, out, cb)
       installCopyright(pkg.package, pkg._copyright, out, cb)
+      installConffiles(pkg.conffiles, out, cb)
       ctrl = ctrl.filter(function (line) {
-        if (!/Out|Target|Verbose|Changelog|Preinst|Postinst|Prerm|Postrm|Clean|Copyright/.test(line)) {
+        if (!/Out|Target|Verbose|Changelog|Preinst|Postinst|Prerm|Postrm|Clean|Copyright|Conffiles/.test(line)) {
           return line
         }
       })
 
       writeChangelog(pkg, out, cb)
-      /* @lucomsky's commit replaced this.
-      Kept only for reference. Will remove in future:
-      const logf = changelog(pkg)
-      if (logf.length > 0) {
-        const logp = `${out}/usr/share/doc/${pkg.package}`
-        const logo = `${logp}/changelog.Debian`
-        fs.mkdirpSync(logp)
-        fs.outputFile(logo, logf.join('\n'),
-        function (err) {
-          if (err) {
-            cb(new gutil.PluginError(P, err))
-            // return
-          }
-          let gzip = fs.createWriteStream(`${logo}.gz`)
-          let logg = fs.createReadStream(logo)
-          try {
-            logg
-            .pipe(zlib.createGzip())
-            .pipe(gzip)
-          } catch (e) {
-            gutil.log(gutil.colors.red(`Error creating ${gzip} for changelog!`))
-            gutil.log(e.stack)
-          } finally {
-            if (fs.existsSync(logo)) {
-              fs.removeSync(logo)
-            }
-          }
-        })
-      }
-      */
-      const ctrlf = ctrl.join('\n')
-      fs.outputFile(`${out}/DEBIAN/control`, ctrlf.substr(0, ctrlf.length - 1),
-      function (err) {
+      
+      fs.mkdir(`${out}/DEBIAN`, '0775', function (err) {
         if (err) {
           cb(new gutil.PluginError(P, err))
           // return
         }
+        
         files.map(function (f) {
           let t = f.path.split('/')
           t = t[t.length - 1]
@@ -202,7 +190,13 @@ module.exports = function (pkg) {
           if (stderr) {
             gutil.log(gutil.colors.red(stderr.trim()))
           }
-          cb(err)
+        const ctrlf = ctrl.join('\n')
+        fs.outputFile(`${out}/DEBIAN/control`, ctrlf.substr(0, ctrlf.length - 1),
+        function (err) {
+          if (err) {
+            cb(new gutil.PluginError(P, err))
+            // return
+          })
         })
       })
     })
