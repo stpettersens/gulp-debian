@@ -179,7 +179,7 @@ module.exports = function (pkg) {
           chmodRegularFile(`${out}/${pkg._target}/${t}`)
         })
         _exec(`chmod ${dirMode} $(find ${pkg._out} -type d)`)
-        _exec(`dpkg-deb -Zxz--build ${pkg._out}/${pkg.package}_${pkg.version}_${pkg.architecture}`,
+        _exec(`dpkg-deb -Zxz --build ${pkg._out}/${pkg.package}_${pkg.version}_${pkg.architecture}`,
         function (err, stdout, stderr) {
           if (pkg._clean) {
             fs.removeSync(`${pkg._out}/${pkg.package}_${pkg.version}_${pkg.architecture}`)
