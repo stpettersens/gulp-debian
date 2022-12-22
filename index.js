@@ -165,68 +165,37 @@ module.exports = function (pkg) {
       })
 
       writeChangelog(pkg, out, cb)
-      /* @lucomsky's commit replaced this.
-      Kept only for reference. Will remove in future:
-      const logf = changelog(pkg)
-      if (logf.length > 0) {
-        const logp = `${out}/usr/share/doc/${pkg.package}`
-        const logo = `${logp}/changelog.Debian`
-        fs.mkdirpSync(logp)
-        fs.outputFile(logo, logf.join('\n'),
-        function (err) {
-          if (err) {
-            cb(new gutil.PluginError(P, err))
-            // return
-          }
-          let gzip = fs.createWriteStream(`${logo}.gz`)
-          let logg = fs.createReadStream(logo)
-          try {
-            logg
-            .pipe(zlib.createGzip())
-            .pipe(gzip)
-          } catch (e) {
-            gutil.log(gutil.colors.red(`Error creating ${gzip} for changelog!`))
-            gutil.log(e.stack)
-          } finally {
-            if (fs.existsSync(logo)) {
-              fs.removeSync(logo)
-            }
-          }
-        })
-      }
-      */
       
       fs.mkdir(`${out}/DEBIAN`, '0775', function (err) {
         if (err) {
           cb(new gutil.PluginError(P, err))
           // return
         }
+        
+        files.map(function (f) {
+          let t = f.path.split('/')
+          t = t[t.length - 1]
+          fs.copySync(f.path, `${out}/${pkg._target}/${t}`)
+          chmodRegularFile(`${out}/${pkg._target}/${t}`)
+        })
+        _exec(`chmod ${dirMode} $(find ${pkg._out} -type d)`)
+        _exec(`dpkg-deb -Zxz--build ${pkg._out}/${pkg.package}_${pkg.version}_${pkg.architecture}`,
+        function (err, stdout, stderr) {
+          if (pkg._clean) {
+            fs.removeSync(`${pkg._out}/${pkg.package}_${pkg.version}_${pkg.architecture}`)
+          }
+          if (pkg._verbose && stdout.length > 1) {
+            gutil.log(stdout.trim() + '\n')
+          }
+          if (stderr) {
+            gutil.log(gutil.colors.red(stderr.trim()))
+          }
         const ctrlf = ctrl.join('\n')
         fs.outputFile(`${out}/DEBIAN/control`, ctrlf.substr(0, ctrlf.length - 1),
         function (err) {
           if (err) {
             cb(new gutil.PluginError(P, err))
             // return
-          }
-          files.map(function (f) {
-            let t = f.path.split('/')
-            t = t[t.length - 1]
-            fs.copySync(f.path, `${out}/${pkg._target}/${t}`)
-            chmodRegularFile(`${out}/${pkg._target}/${t}`)
-          })
-          _exec(`chmod ${dirMode} $(find ${pkg._out} -type d)`)
-          _exec(`dpkg-deb --build ${pkg._out}/${pkg.package}_${pkg.version}_${pkg.architecture}`,
-          function (err, stdout, stderr) {
-            if (pkg._clean) {
-              fs.removeSync(`${pkg._out}/${pkg.package}_${pkg.version}_${pkg.architecture}`)
-            }
-            if (pkg._verbose && stdout.length > 1) {
-              gutil.log(stdout.trim() + '\n')
-            }
-            if (stderr) {
-              gutil.log(gutil.colors.red(stderr.trim()))
-            }
-            cb(err)
           })
         })
       })
