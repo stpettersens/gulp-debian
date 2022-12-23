@@ -127,6 +127,8 @@ gulp.task('default', function (done) {
 * [Olaf Radicke](https://github.com/OlafRadicke)
 * [Míguel Ángel Mulero Martínez](https://github.com/McGiverGim)
 * [Alexey Lukomsky](https://github.com/lucomsky)
+* [haslinghuis](https://github.com/haslinghuis)
+* [Dominic Clifton](https://github.com/hydra)
 
 ##### License
 
