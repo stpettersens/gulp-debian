@@ -152,27 +152,27 @@ module.exports = function (pkg) {
         // return
       }
       let out = `${pkg._out}/${pkg.package}_${pkg.version}_${pkg.architecture}`
-      installScript('preinst', pkg.preinst, out, cb)
-      installScript('postinst', pkg.postinst, out, cb)
-      installScript('prerm', pkg.prerm, out, cb)
-      installScript('postrm', pkg.postrm, out, cb)
-      installScript('triggers', pkg.triggers, out, cb)
-      installCopyright(pkg.package, pkg._copyright, out, cb)
-      installConffiles(pkg.conffiles, out, cb)
-      ctrl = ctrl.filter(function (line) {
-        if (!/Out|Target|Verbose|Changelog|Preinst|Postinst|Prerm|Postrm|Clean|Copyright|Conffiles/.test(line)) {
-          return line
-        }
-      })
-
-      writeChangelog(pkg, out, cb)
-      
-      fs.mkdir(`${out}/DEBIAN`, '0775', function (err) {
+      fs.mkdirs(`${out}/DEBIAN`, '0775', function (err) {
         if (err) {
           cb(new gutil.PluginError(P, err))
           // return
         }
-        
+
+        installScript('preinst', pkg.preinst, out, cb)
+        installScript('postinst', pkg.postinst, out, cb)
+        installScript('prerm', pkg.prerm, out, cb)
+        installScript('postrm', pkg.postrm, out, cb)
+        installScript('triggers', pkg.triggers, out, cb)
+        installCopyright(pkg.package, pkg._copyright, out, cb)
+        installConffiles(pkg.conffiles, out, cb)
+        ctrl = ctrl.filter(function (line) {
+          if (!/Out|Target|Verbose|Changelog|Preinst|Postinst|Prerm|Postrm|Clean|Copyright|Conffiles/.test(line)) {
+            return line
+          }
+        })
+
+        writeChangelog(pkg, out, cb)
+
         files.map(function (f) {
           let t = f.path.split('/')
           t = t[t.length - 1]
@@ -203,3 +203,4 @@ module.exports = function (pkg) {
     })
   })
 }
+
