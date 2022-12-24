@@ -8,5 +8,6 @@ node_modules/
 *.yml
 Gulpfile.js
 json2yaml.js
+jic.js
 demo_0.1-2_i386.json
 package-0.1.5.json
