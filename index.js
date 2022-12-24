@@ -180,23 +180,24 @@ module.exports = function (pkg) {
           chmodRegularFile(`${out}/${pkg._target}/${t}`)
         })
         _exec(`chmod ${dirMode} $(find ${pkg._out} -type d)`)
-        _exec(`dpkg-deb -Zxz --build ${pkg._out}/${pkg.package}_${pkg.version}_${pkg.architecture}`,
-        function (err, stdout, stderr) {
-          if (pkg._clean) {
-            fs.removeSync(`${pkg._out}/${pkg.package}_${pkg.version}_${pkg.architecture}`)
-          }
-          if (pkg._verbose && stdout.length > 1) {
-            gutil.log(stdout.trim() + '\n')
-          }
-          if (stderr) {
-            gutil.log(gutil.colors.red(stderr.trim()))
-          }
         const ctrlf = ctrl.join('\n')
         fs.outputFile(`${out}/DEBIAN/control`, ctrlf.substr(0, ctrlf.length - 1),
         function (err) {
           if (err) {
             cb(new gutil.PluginError(P, err))
             // return
+          }
+          _exec(`dpkg-deb -Zxz --build ${pkg._out}/${pkg.package}_${pkg.version}_${pkg.architecture}`,
+          function (err, stdout, stderr) {
+            if (pkg._clean) {
+              fs.removeSync(`${pkg._out}/${pkg.package}_${pkg.version}_${pkg.architecture}`)
+            }
+            if (pkg._verbose && stdout.length > 1) {
+              gutil.log(stdout.trim() + '\n')
+            }
+            if (stderr) {
+              gutil.log(gutil.colors.red(stderr.trim()))
+            }
           })
         })
       })
