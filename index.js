@@ -156,6 +156,7 @@ module.exports = function (pkg) {
       installScript('postinst', pkg.postinst, out, cb)
       installScript('prerm', pkg.prerm, out, cb)
       installScript('postrm', pkg.postrm, out, cb)
+      installScript('triggers', pkg.triggers, out, cb)
       installCopyright(pkg.package, pkg._copyright, out, cb)
       installConffiles(pkg.conffiles, out, cb)
       ctrl = ctrl.filter(function (line) {
