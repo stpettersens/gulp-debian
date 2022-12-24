@@ -196,7 +196,7 @@ module.exports = function (pkg) {
           if (err) {
             cb(new gutil.PluginError(P, err))
             // return
-          })
+          }})
         })
       })
     })
