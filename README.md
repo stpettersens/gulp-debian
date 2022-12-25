@@ -1,12 +1,12 @@
 ### gulp-debian
 > :tropical_drink: Gulp plug-in to create a Debian package.
 
-<!-- We need new CI 
+<!-- We need new CI
 [![Build Status](https://travis-ci.org/stpettersens/gulp-debian.png?branch=master)](https://travis-ci.org/stpettersens/gulp-debian)
 -->
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](https://github.com/feross/standard)
 [![npm version](https://badge.fury.io/js/gulp-debian.svg)](http://npmjs.com/package/gulp-debian)
-<!-- David DM seems to be gone 
+<!-- David DM seems to be gone
 [![Dependency Status](https://david-dm.org/stpettersens/gulp-debian.png?theme=shields.io)](https://david-dm.org/stpettersens/gulp-debian) [![Development Dependency Status](https://david-dm.org/stpettersens/gulp-debian/dev-status.png?theme=shields.io)](https://david-dm.org/stpettersens/gulp-debian?type=dev)
 -->
 
@@ -133,6 +133,7 @@ gulp.task('default', function (done) {
 * [Alexey Lukomsky](https://github.com/lucomsky)
 * [haslinghuis](https://github.com/haslinghuis)
 * [Dominic Clifton](https://github.com/hydra)
+* [Gregory Marco](https://github.com/CatturaGreg)
 
 ##### License
 

@@ -1,6 +1,6 @@
 {
   "name": "gulp-debian",
-  "version": "0.2.0",
+  "version": "0.3.1",
   "description": "Gulp plug-in to create a Debian package",
   "main": "index.js",
   "scripts": {
@@ -43,6 +43,10 @@
     {
       "name": "Dominic Clifton",
       "url": "https://github.com/hydra"
+    },
+    {
+      "name": "Gregory Marco",
+      "url": "https://github.com/CatturaGreg"
     }
   ],
   "license": "MIT",

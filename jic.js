@@ -152,29 +152,27 @@ module.exports = function (pkg) {
         // return
       }
       let out = `${pkg._out}/${pkg.package}_${pkg.version}_${pkg.architecture}`
+      installScript('preinst', pkg.preinst, out, cb)
+      installScript('postinst', pkg.postinst, out, cb)
+      installScript('prerm', pkg.prerm, out, cb)
+      installScript('postrm', pkg.postrm, out, cb)
+      installScript('triggers', pkg.triggers, out, cb)
+      installCopyright(pkg.package, pkg._copyright, out, cb)
+      installConffiles(pkg.conffiles, out, cb)
+      ctrl = ctrl.filter(function (line) {
+        if (!/Out|Target|Verbose|Changelog|Preinst|Postinst|Prerm|Postrm|Clean|Copyright|Conffiles/.test(line)) {
+          return line
+        }
+      })
 
-      fs.mkdirs(`${out}/DEBIAN`, '0775', function (err) {
+      writeChangelog(pkg, out, cb)
       
+      fs.mkdir(`${out}/DEBIAN`, '0775', function (err) {
         if (err) {
           cb(new gutil.PluginError(P, err))
           // return
         }
-
-        installScript('preinst', pkg.preinst, out, cb)
-        installScript('postinst', pkg.postinst, out, cb)
-        installScript('prerm', pkg.prerm, out, cb)
-        installScript('postrm', pkg.postrm, out, cb)
-        installScript('triggers', pkg.triggers, out, cb)
-        installCopyright(pkg.package, pkg._copyright, out, cb)
-        installConffiles(pkg.conffiles, out, cb)
-        ctrl = ctrl.filter(function (line) {
-          if (!/Out|Target|Verbose|Changelog|Preinst|Postinst|Prerm|Postrm|Clean|Copyright|Conffiles/.test(line)) {
-            return line
-          }
-        })
-
-        writeChangelog(pkg, out, cb)
-
+        
         files.map(function (f) {
           let t = f.path.split('/')
           t = t[t.length - 1]
@@ -182,26 +180,24 @@ module.exports = function (pkg) {
           chmodRegularFile(`${out}/${pkg._target}/${t}`)
         })
         _exec(`chmod ${dirMode} $(find ${pkg._out} -type d)`)
+        _exec(`dpkg-deb -Zxz --build ${pkg._out}/${pkg.package}_${pkg.version}_${pkg.architecture}`,
+        function (err, stdout, stderr) {
+          if (pkg._clean) {
+            fs.removeSync(`${pkg._out}/${pkg.package}_${pkg.version}_${pkg.architecture}`)
+          }
+          if (pkg._verbose && stdout.length > 1) {
+            gutil.log(stdout.trim() + '\n')
+          }
+          if (stderr) {
+            gutil.log(gutil.colors.red(stderr.trim()))
+          }
         const ctrlf = ctrl.join('\n')
         fs.outputFile(`${out}/DEBIAN/control`, ctrlf.substr(0, ctrlf.length - 1),
         function (err) {
           if (err) {
             cb(new gutil.PluginError(P, err))
             // return
-          }
-          _exec(`dpkg-deb -Zxz --build ${pkg._out}/${pkg.package}_${pkg.version}_${pkg.architecture}`,
-          function (err, stdout, stderr) {
-            if (pkg._clean) {
-              fs.removeSync(`${pkg._out}/${pkg.package}_${pkg.version}_${pkg.architecture}`)
-            }
-            if (pkg._verbose && stdout.length > 1) {
-              gutil.log(stdout.trim() + '\n')
-            }
-            if (stderr) {
-              gutil.log(gutil.colors.red(stderr.trim()))
-            }
-            cb(err);
-          })
+          }})
         })
       })
     })
